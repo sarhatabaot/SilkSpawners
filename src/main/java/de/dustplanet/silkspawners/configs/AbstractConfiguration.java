@@ -1,7 +1,5 @@
 package de.dustplanet.silkspawners.configs;
 
-import de.dustplanet.silkspawners.util.CommentedConfiguration;
-
 /**
  * Default configs.
  *

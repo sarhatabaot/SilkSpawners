@@ -1,4 +1,4 @@
-package de.dustplanet.silkspawners.util;
+package de.dustplanet.silkspawners.configs;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;

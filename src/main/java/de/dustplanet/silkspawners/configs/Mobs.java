@@ -1,7 +1,5 @@
 package de.dustplanet.silkspawners.configs;
 
-import de.dustplanet.silkspawners.util.CommentedConfiguration;
-
 import java.util.ArrayList;
 
 public class Mobs extends AbstractConfiguration {

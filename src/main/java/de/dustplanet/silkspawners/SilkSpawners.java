@@ -6,7 +6,7 @@ import de.dustplanet.silkspawners.configs.Config;
 import de.dustplanet.silkspawners.configs.Localization;
 import de.dustplanet.silkspawners.configs.Mobs;
 import de.dustplanet.silkspawners.listeners.*;
-import de.dustplanet.silkspawners.util.CommentedConfiguration;
+import de.dustplanet.silkspawners.configs.CommentedConfiguration;
 import de.dustplanet.silkspawners.util.Common;
 import de.dustplanet.silkspawners.util.SilkUtil;
 import lombok.Getter;
@@ -474,7 +474,7 @@ public class SilkSpawners extends JavaPlugin {
     private String getBottomRecipe(String entityID){
         if (mobs.contains("creatures." + entityID + ".recipe.bottom")) {
             return mobs.getString("creatures." + entityID + ".recipe.bottom", "AAA");
-        } 
+        }
         return config.getString("recipeBottom", "AAA");
 
     }

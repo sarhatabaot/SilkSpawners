@@ -1,5 +1,6 @@
 package de.dustplanet.silkspawners.listeners;
 
+import de.dustplanet.silkspawners.util.Common;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -41,12 +42,8 @@ public class OnItemCraftListener extends SilkListener {
         String spawnerName = creatureName.toLowerCase().replace(" ", "");
         if (!player.hasPermission("silkspawners.craft." + spawnerName)) {
             event.setCancelled(true);
-            getSilkUtil().sendMessage(player,
-                    ChatColor
-                            .translateAlternateColorCodes('\u0026',
-                                    getPlugin().getLocalization().getString("noPermissionCraft").replace("%ID%", entityID))
-                            .replace("%creature%", spawnerName));
-            return;
+            Common.tell(player,getPlugin().getLocalization().getString("noPermissionCraft").replace("%ID%", entityID)
+                    .replace("%creature%", spawnerName));
         }
     }
 

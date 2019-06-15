@@ -1,7 +1,5 @@
 package de.dustplanet.silkspawners.listeners;
 
-import de.dustplanet.silkspawners.SilkSpawners;
-import de.dustplanet.silkspawners.util.SilkUtil;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EnderDragon;

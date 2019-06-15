@@ -1,6 +1,5 @@
 package de.dustplanet.silkspawners.configs;
 
-import de.dustplanet.silkspawners.util.CommentedConfiguration;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
