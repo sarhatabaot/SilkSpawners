@@ -45,7 +45,7 @@ public interface NMSProvider {
     }
 
     default void displayBossBar(String title, String colorName, String styleName, Player player, Plugin plugin, int period) {
-        return;
+
     }
 
     ItemStack getItemInHand(Player player);
