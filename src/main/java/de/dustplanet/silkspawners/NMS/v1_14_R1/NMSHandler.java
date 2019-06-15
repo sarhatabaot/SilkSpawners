@@ -78,9 +78,7 @@ public class NMSHandler implements NMSProvider {
             mapField.setAccessible(true);
             IRegistry<EntityTypes<?>> entityTypeRegistry = IRegistry.ENTITY_TYPE;
             RegistryID<EntityTypes<?>> registryID = (RegistryID<EntityTypes<?>>) mapField.get(entityTypeRegistry);
-            Iterator<EntityTypes<?>> iterator = registryID.iterator();
-            while (iterator.hasNext()) {
-                EntityTypes<?> next = iterator.next();
+            for (final EntityTypes<?> next : registryID) {
                 entities.add(EntityTypes.getName(next).getKey());
             }
         } catch (SecurityException | NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
@@ -236,8 +234,8 @@ public class NMSHandler implements NMSProvider {
      */
     @Override
     public Block getSpawnerFacing(Player player, int distance) {
-        Block block = player.getTargetBlock((Set<Material>) null, distance);
-        if (block == null || block.getType() != Material.SPAWNER) {
+        Block block = player.getTargetBlock(null, distance);
+        if (block.getType() != Material.SPAWNER) {
             return null;
         }
         return block;
