@@ -6,12 +6,12 @@ import de.dustplanet.silkspawners.util.SilkUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
 
 /**
  * Handles the commands.
@@ -19,36 +19,44 @@ import org.jetbrains.annotations.NotNull;
  * @author xGhOsTkiLLeRx
  */
 
-public class SpawnerCommand implements CommandExecutor {
+public class SpawnerCommand extends PlayerCommand {
     private SilkUtil su;
     private SilkSpawners plugin;
 
-    public SpawnerCommand(SilkSpawners instance, SilkUtil util) {
-        su = util;
-        plugin = instance;
+    public SpawnerCommand() {
+        super("silkspawners");
+
+        setPrefix("[&2Silk&aSpawners&f]");
+        setDescription("Command for changing and getting spawners or spawn eggs");
+        setUsage("/<command> help");
+        setPermission("silkspawners.help");
+        setAliases(Arrays.asList("ss","spawner","silk","spawnersilk", "egg","eg","eggs"));
+
+        plugin = SilkSpawners.getInstance();
+        su = plugin.getSilkUtil();
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
+    public void run(final @NotNull Player player, @NotNull final String[] args) {
         switch (args.length) {
             case 1:
                 switch (args[0].toLowerCase()) {
                     case "help":
-                        handleHelp(sender);
+                        handleHelp();
                         break;
                     case "all":
                     case "list":
-                        handleList(sender);
+                        handleList(player);
                         break;
                     case "reload":
                     case "rl":
-                        handleReload(sender);
+                        handleReload(player);
                         break;
                     case "view":
-                        handleView(sender);
+                        handleView(player);
                         break;
                     default:
-                        handleUnknownArgument(sender);
+                        handleUnknownArgument(player);
                         break;
                 }
                 break;
@@ -56,10 +64,10 @@ public class SpawnerCommand implements CommandExecutor {
                 switch (args[0].toLowerCase()) {
                     case "change":
                     case "set":
-                        handleChange(sender, args[1]);
+                        handleChange(player, args[1]);
                         break;
                     default:
-                        handleUnknownArgument(sender);
+                        handleUnknownArgument(player);
                         break;
                 }
                 break;
@@ -67,10 +75,10 @@ public class SpawnerCommand implements CommandExecutor {
                 switch (args[0].toLowerCase()) {
                     case "give":
                     case "add":
-                        handleGive(sender, args[1], args[2].toLowerCase(), null);
+                        handleGive(player, args[1], args[2].toLowerCase(), null);
                         break;
                     default:
-                        handleUnknownArgument(sender);
+                        handleUnknownArgument(player);
                         break;
                 }
                 break;
@@ -78,18 +86,17 @@ public class SpawnerCommand implements CommandExecutor {
                 switch (args[0].toLowerCase()) {
                     case "give":
                     case "add":
-                        handleGive(sender, args[1], args[2].toLowerCase(), args[3]);
+                        handleGive(player, args[1], args[2].toLowerCase(), args[3]);
                         break;
                     default:
-                        handleUnknownArgument(sender);
+                        handleUnknownArgument(player);
                         break;
                 }
                 break;
             default:
-                handleUnknownArgument(sender);
+                handleUnknownArgument(player);
                 break;
         }
-        return true;
     }
 
     private void handleGive(CommandSender sender, String receiver, String mob, String amountString) {
@@ -346,13 +353,12 @@ public class SpawnerCommand implements CommandExecutor {
         su.sendMessage(sender, ChatColor.translateAlternateColorCodes('\u0026', plugin.localization.getString("unknownArgument")));
     }
 
-    private void handleHelp(CommandSender sender) {
-        if (sender.hasPermission("silkspawners.help")) {
-            String message = ChatColor.translateAlternateColorCodes('\u0026',
-                    plugin.localization.getString("help").replace("%version%", plugin.getDescription().getVersion()));
-            su.sendMessage(sender, message);
+    private void handleHelp() {
+        if (getPlayer().hasPermission("silkspawners.help")) {
+            String message = plugin.localization.getString("help").replace("%version%", plugin.getDescription().getVersion());
+            tellNoPrefix(message);
         } else {
-            su.sendMessage(sender, ChatColor.translateAlternateColorCodes('\u0026', plugin.localization.getString("noPermission")));
+            tell(plugin.localization.getString("noPermission"));
         }
     }
 
