@@ -240,10 +240,7 @@ public class SilkSpawners extends JavaPlugin {
 
     // Add the recipes
     private void loadRecipes() {
-        boolean verbose = config.getBoolean("verboseConfig", false);
-
         verbose("Loading custom recipes");
-
 
         // Add "base" recipe for eggs containing no durability (not from SilkSpawners)
         // 1.9 deprecated the durability and uses NBT tags
