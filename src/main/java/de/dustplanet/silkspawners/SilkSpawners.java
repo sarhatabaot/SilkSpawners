@@ -4,10 +4,7 @@ import de.dustplanet.silkspawners.commands.SpawnerCommand;
 import de.dustplanet.silkspawners.configs.Config;
 import de.dustplanet.silkspawners.configs.Localization;
 import de.dustplanet.silkspawners.configs.Mobs;
-import de.dustplanet.silkspawners.listeners.SilkSpawnersBlockListener;
-import de.dustplanet.silkspawners.listeners.SilkSpawnersEntityListener;
-import de.dustplanet.silkspawners.listeners.SilkSpawnersInventoryListener;
-import de.dustplanet.silkspawners.listeners.SilkSpawnersPlayerListener;
+import de.dustplanet.silkspawners.listeners.*;
 import de.dustplanet.silkspawners.util.CommentedConfiguration;
 import de.dustplanet.silkspawners.util.Common;
 import de.dustplanet.silkspawners.util.SilkUtil;
@@ -114,10 +111,15 @@ public class SilkSpawners extends JavaPlugin {
 
     private void registerListeners() {
         PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new SilkSpawnersBlockListener(this, silkUtil), this);
-        pm.registerEvents(new SilkSpawnersPlayerListener(this, silkUtil), this);
-        pm.registerEvents(new SilkSpawnersInventoryListener(this, silkUtil), this);
-        pm.registerEvents(new SilkSpawnersEntityListener(this, silkUtil), this);
+        pm.registerEvents(new OnBlockBreakListener(),this);
+        pm.registerEvents(new OnBlockPlaceListener(),this);
+        pm.registerEvents(new OnInventoryClickListener(),this);
+        pm.registerEvents(new OnPlayerInteractListener(), this);
+        pm.registerEvents(new OnPlayerHoldItemListener(),this);
+        pm.registerEvents(new OnItemCraftListener(), this);
+        pm.registerEvents(new OnEntityExplodeListener(), this);
+        pm.registerEvents(new OnPrepareItemCraftListener(), this);
+        getLogger().info("Registered listeners.");
     }
 
     // If no config is found, copy the default one(s)!
