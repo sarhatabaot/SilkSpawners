@@ -68,7 +68,7 @@ public class SilkSpawnersBlockListener implements Listener {
 
         entityID = su.getDisplayNameToMobID().get(breakEvent.getEntityID());
 
-        plugin.informPlayer(player, ChatColor.translateAlternateColorCodes('\u0026', plugin.localization.getString("spawnerBroken"))
+        plugin.informPlayer(player, ChatColor.translateAlternateColorCodes('\u0026', plugin.getLocalization().getString("spawnerBroken"))
                 .replace("%creature%", su.getCreatureName(entityID)));
 
         ItemStack tool = su.nmsProvider.getItemInHand(player);
@@ -215,15 +215,15 @@ public class SilkSpawnersBlockListener implements Listener {
             su.sendMessage(player,
                     ChatColor
                             .translateAlternateColorCodes('\u0026',
-                                    plugin.localization.getString("noPermissionPlace").replace("%ID%", entityID))
+                                    plugin.getLocalization().getString("noPermissionPlace").replace("%ID%", entityID))
                             .replace("%creature%", creatureName));
             return;
         }
 
         if (defaultID) {
-            plugin.informPlayer(player, ChatColor.translateAlternateColorCodes('\u0026', plugin.localization.getString("placingDefault")));
+            plugin.informPlayer(player, ChatColor.translateAlternateColorCodes('\u0026', plugin.getLocalization().getString("placingDefault")));
         } else {
-            plugin.informPlayer(player, ChatColor.translateAlternateColorCodes('\u0026', plugin.localization.getString("spawnerPlaced"))
+            plugin.informPlayer(player, ChatColor.translateAlternateColorCodes('\u0026', plugin.getLocalization().getString("spawnerPlaced"))
                     .replace("%creature%", su.getCreatureName(entityID)));
         }
 

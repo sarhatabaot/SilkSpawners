@@ -30,7 +30,6 @@ import org.bukkit.plugin.Plugin;
 import javax.annotation.Nullable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -608,20 +607,20 @@ public class SilkUtil {
     public void notify(Player player, String spawnerName) {
         if (isBarAPI()) {
             String shortInfo = ChatColor.translateAlternateColorCodes('\u0026',
-                    plugin.localization.getString("informationOfSpawnerBar").replace("%creature%", spawnerName));
+                    plugin.getLocalization().getString("informationOfSpawnerBar").replace("%creature%", spawnerName));
             BarAPI.setMessage(player, shortInfo, plugin.getConfig().getInt("barAPI.displayTime", 3));
         } else if (isVanillaBossBar()) {
             String shortInfo = ChatColor.translateAlternateColorCodes('\u0026',
-                    plugin.localization.getString("informationOfSpawnerBar").replace("%creature%", spawnerName));
+                    plugin.getLocalization().getString("informationOfSpawnerBar").replace("%creature%", spawnerName));
             String barColor = plugin.getConfig().getString("vanillaBossBar.color", "RED");
             String barStyle = plugin.getConfig().getString("vanillaBossBar.style", "SOLID");
             int barTime = plugin.getConfig().getInt("vanillaBossBar.displayTime", 3);
             nmsProvider.displayBossBar(shortInfo, barColor, barStyle, player, plugin, barTime);
         } else {
             sendMessage(player, ChatColor.translateAlternateColorCodes('\u0026',
-                    plugin.localization.getString("informationOfSpawner1").replace("%creature%", spawnerName)));
+                    plugin.getLocalization().getString("informationOfSpawner1").replace("%creature%", spawnerName)));
             sendMessage(player, ChatColor.translateAlternateColorCodes('\u0026',
-                    plugin.localization.getString("informationOfSpawner2").replace("%creature%", spawnerName)));
+                    plugin.getLocalization().getString("informationOfSpawner2").replace("%creature%", spawnerName)));
         }
     }
 
@@ -731,7 +730,7 @@ public class SilkUtil {
             return ChatColor.translateAlternateColorCodes('&',
                     plugin.mobs.getString("creatures." + mobName + ".spawnerName", "Monster Spawner"));
         }
-        return ChatColor.translateAlternateColorCodes('&', plugin.localization.getString("spawnerName", "Monster Spawner"));
+        return ChatColor.translateAlternateColorCodes('&', plugin.getLocalization().getString("spawnerName", "Monster Spawner"));
     }
 
     /**

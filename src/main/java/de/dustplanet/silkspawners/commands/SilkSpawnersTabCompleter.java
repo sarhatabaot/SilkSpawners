@@ -1,5 +1,6 @@
 package de.dustplanet.silkspawners.commands;
 
+import de.dustplanet.silkspawners.SilkSpawners;
 import de.dustplanet.silkspawners.util.SilkUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -21,8 +22,8 @@ public class SilkSpawnersTabCompleter implements TabCompleter {
     private String[] commands = { "add", "all", "change", "give", "help", "list", "reload", "rl", "set", "view" };
     private SilkUtil su;
 
-    public SilkSpawnersTabCompleter(SilkUtil util) {
-        su = util;
+    public SilkSpawnersTabCompleter() {
+        su = SilkSpawners.getInstance().getSilkUtil();
     }
 
     @Override
