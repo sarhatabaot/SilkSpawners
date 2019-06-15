@@ -1,16 +1,13 @@
 package de.dustplanet.silkspawners.listeners;
 
-import de.dustplanet.silkspawners.SilkSpawners;
 import de.dustplanet.silkspawners.events.SilkSpawnersSpawnerBreakEvent;
 import de.dustplanet.silkspawners.util.Common;
-import de.dustplanet.silkspawners.util.SilkUtil;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -38,7 +35,6 @@ public class OnBlockBreakListener extends SilkListener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-
         boolean isFakeEvent = !BlockBreakEvent.class.equals(event.getClass());
         if (isFakeEvent) {
             return;
@@ -46,15 +42,12 @@ public class OnBlockBreakListener extends SilkListener {
 
         Block block = event.getBlock();
         Player player = event.getPlayer();
-
         if (block.getType() != getSilkUtil().nmsProvider.getSpawnerMaterial()) {
             return;
         }
-
         if (!getSilkUtil().canBuildHere(player, block.getLocation())) {
             return;
         }
-
         String entityID = getSilkUtil().getSpawnerEntityID(block);
 
         SilkSpawnersSpawnerBreakEvent breakEvent = new SilkSpawnersSpawnerBreakEvent(player, block, entityID);
@@ -103,28 +96,15 @@ public class OnBlockBreakListener extends SilkListener {
         }
 
         int randomNumber = rnd.nextInt(100);
-        int dropChance = 0;
 
         if (validToolAndSilkTouch && player.hasPermission("silkspawners.silkdrop." + mobName)) {
-            if (plugin.getMobs().contains("creatures." + entityID + ".silkDropChance")) {
-                dropChance = plugin.getMobs().getInt("creatures." + entityID + ".silkDropChance", 100);
-            } else {
-                dropChance = plugin.config.getInt("silkDropChance", 100);
-            }
-
-            if (randomNumber < dropChance) {
+            if (randomNumber < getSilkDropChance(entityID)) {
                 ItemStack breakEventDrop = breakEvent.getDrop();
                 ItemStack spawnerItemStack = null;
                 if (breakEventDrop != null) {
                     spawnerItemStack = breakEventDrop;
                 } else {
-                    int amount = 1;
-                    if (plugin.getMobs().contains("creatures." + entityID + ".dropAmount")) {
-                        amount = plugin.getMobs().getInt("creatures." + entityID + ".dropAmount", 1);
-                    } else {
-                        amount = plugin.config.getInt("dropAmount", 1);
-                    }
-                    spawnerItemStack = getSilkUtil().newSpawnerItem(entityID, getSilkUtil().getCustomSpawnerName(entityID), amount, false);
+                    spawnerItemStack = getSilkUtil().newSpawnerItem(entityID, getSilkUtil().getCustomSpawnerName(entityID), getDropAmount(entityID), false);
                 }
                 if (spawnerItemStack == null) {
                     plugin.getLogger().warning("Skipping dropping of spawner, since item is null");
@@ -147,12 +127,7 @@ public class OnBlockBreakListener extends SilkListener {
         if (player.hasPermission("silkspawners.destroydrop." + mobName)) {
             if (plugin.config.getBoolean("destroyDropEgg", false)) {
                 randomNumber = rnd.nextInt(100);
-                if (plugin.getMobs().contains("creatures." + entityID + ".eggDropChance")) {
-                    dropChance = plugin.getMobs().getInt("creatures." + entityID + ".eggDropChance", 100);
-                } else {
-                    dropChance = plugin.config.getInt("eggDropChance", 100);
-                }
-                if (randomNumber < dropChance) {
+                if (randomNumber < getEggDropChance(entityID)) {
                     world.dropItemNaturally(block.getLocation(), getSilkUtil().newEggItem(entityID, 1));
                 }
             }
@@ -160,15 +135,41 @@ public class OnBlockBreakListener extends SilkListener {
             int dropBars = plugin.config.getInt("destroyDropBars", 0);
             if (dropBars != 0) {
                 randomNumber = rnd.nextInt(100);
-                if (plugin.getMobs().contains("creatures." + entityID + ".destroyDropChance")) {
-                    dropChance = plugin.getMobs().getInt("creatures." + entityID + ".destroyDropChance", 100);
-                } else {
-                    dropChance = plugin.config.getInt("destroyDropChance", 100);
-                }
-                if (randomNumber < dropChance) {
+                if (randomNumber < getDestroyDropChance(entityID)) {
                     world.dropItem(block.getLocation(), new ItemStack(getSilkUtil().nmsProvider.getIronFenceMaterial(), dropBars));
                 }
             }
         }
+    }
+
+    private int getDropAmount(String entityID){
+        if (plugin.getMobs().contains("creatures." + entityID + ".dropAmount")) {
+            return plugin.getMobs().getInt("creatures." + entityID + ".dropAmount", 1);
+        }
+        return plugin.config.getInt("dropAmount", 1);
+
+    }
+
+    private int getSilkDropChance(String entityID){
+        if (plugin.getMobs().contains("creatures." + entityID + ".silkDropChance")) {
+            return plugin.getMobs().getInt("creatures." + entityID + ".silkDropChance", 100);
+        }
+        return plugin.config.getInt("silkDropChance", 100);
+    }
+
+    private int getEggDropChance(String entityID){
+        if (plugin.getMobs().contains("creatures." + entityID + ".eggDropChance")) {
+            return plugin.getMobs().getInt("creatures." + entityID + ".eggDropChance", 100);
+        }
+        return plugin.config.getInt("eggDropChance", 100);
+
+    }
+
+    private int getDestroyDropChance(String entityID){
+        if (plugin.getMobs().contains("creatures." + entityID + ".destroyDropChance")) {
+            return plugin.getMobs().getInt("creatures." + entityID + ".destroyDropChance", 100);
+        }
+        return plugin.config.getInt("destroyDropChance", 100);
+
     }
 }
