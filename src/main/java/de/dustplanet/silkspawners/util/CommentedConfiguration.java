@@ -9,6 +9,7 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.representer.Representer;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 /**
@@ -250,7 +251,7 @@ public class CommentedConfiguration extends YamlConfiguration {
             char[] buffer = new char[1024];
             String s = "";
             try (Writer writer = new StringWriter();
-                    Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));) {
+                    Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
                 int n;
                 while ((n = reader.read(buffer)) != -1) {
                     writer.write(buffer, 0, n);
@@ -273,7 +274,7 @@ public class CommentedConfiguration extends YamlConfiguration {
      * @return True on success.
      */
     public boolean stringToFile(String source, File file) {
-        try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), "UTF-8")) {
+        try (OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8)) {
             out.write(source);
             return true;
         } catch (IOException e) {
