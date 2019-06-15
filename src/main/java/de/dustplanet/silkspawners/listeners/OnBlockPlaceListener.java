@@ -74,6 +74,6 @@ public class OnBlockPlaceListener extends SilkListener {
                     .replace("%creature%", getSilkUtil().getCreatureName(entityID)));
         }
 
-        getSilkUtil().setSpawnerEntityID(blockPlaced, entityID);
+        getSilkUtil().setSpawnerEntityID(blockPlaced, entityID); //TODO: issue #3 here
     }
 }
