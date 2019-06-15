@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import static de.dustplanet.silkspawners.SilkSpawners.verbose;
+
 /**
  * This is the util class where all the magic happens.
  *
@@ -57,7 +59,7 @@ public class SilkUtil {
     /**
      * Default (fallback) entityID, standard is the pig.
      */
-    private String defaultEntityID = EntityType.PIG.getName();
+    private String defaultEntityID = EntityType.PIG.getKey().getKey();
 
     /**
      * Boolean toggle for reflection.
@@ -111,7 +113,7 @@ public class SilkUtil {
      */
     public static SilkUtil hookIntoSilkSpanwers() {
         SilkSpawners plugin = (SilkSpawners) Bukkit.getPluginManager().getPlugin("SilkSpawners");
-        if (plugin == null || plugin.getConfig() == null) {
+        if (plugin == null) {
             Bukkit.getLogger()
                     .severe("SilkSpawners is not yet ready, have you called SilkUtil.hookIntoSilkSpanwers() before your onEnable()?");
             return null;
@@ -137,7 +139,7 @@ public class SilkUtil {
             final Class<?> clazz = Class.forName("de.dustplanet.silkspawners.NMS." + version + ".NMSHandler");
             if (NMSProvider.class.isAssignableFrom(clazz)) {
                 nmsProvider = (NMSProvider) clazz.getConstructor().newInstance();
-                plugin.getLogger().info("Loading support for %s" + version);
+                plugin.getLogger().info("Loading support for" + version);
                 return true;
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
@@ -157,13 +159,12 @@ public class SilkUtil {
      */
     public void load() {
         // Should we display more information
-        boolean verbose = plugin.getConfig().getBoolean("verboseConfig", false);
 
         // Scan the entities
         List<String> entities = scanEntityMap();
-        if (verbose) {
-            plugin.getLogger().info("Scanning the mobs");
-        }
+
+        verbose("Scanning the mobs");
+
         for (String entityID : entities) {
             EntityType bukkitEntity = EntityType.fromName(entityID);
             Class<? extends Entity> bukkitEntityClass = bukkitEntity == null ? null : bukkitEntity.getEntityClass();
@@ -177,9 +178,7 @@ public class SilkUtil {
                 enable = plugin.getMobs().getBoolean("creatures." + entityID + ".enable", enable);
             }
             if (!enable) {
-                if (verbose) {
-                    plugin.getLogger().info("Entity " + entityID + " = " + bukkitEntity + "[" + bukkitEntityClass + "] (disabled)");
-                }
+                verbose("Entity " + entityID + " = " + bukkitEntity + "[" + bukkitEntityClass + "] (disabled)");
                 continue;
             }
 
@@ -198,10 +197,9 @@ public class SilkUtil {
                 displayNameToMobID.put(alias, entityID);
             }
 
-            if (verbose) {
-                plugin.getLogger().info("Entity " + entityID + " = " + bukkitEntity + "[" + bukkitEntityClass + "] (display name: "
+            verbose("Entity " + entityID + " = " + bukkitEntity + "[" + bukkitEntityClass + "] (display name: "
                         + displayName + ", aliases: " + aliases + ")");
-            }
+
         }
 
         // Should we use something else as the default?
@@ -214,9 +212,8 @@ public class SilkUtil {
                 String defaultEntityID = displayNameToMobID.get(defaultCreatureString);
                 // Change default
                 setDefaultEntityID(defaultEntityID);
-                if (verbose) {
-                    plugin.getLogger().info("Default monster spawner set to " + mobIDToDisplayName.get(defaultEntityID));
-                }
+                verbose("Default monster spawner set to " + mobIDToDisplayName.get(defaultEntityID));
+
             } else {
                 // Unknown, fallback
                 plugin.getLogger().warning("Invalid creature type: " + defaultCreatureString + ", default monster spawner fallback to PIG");
@@ -227,10 +224,7 @@ public class SilkUtil {
         if (!plugin.getConfig().getBoolean("useReflection", true)) {
             setUseReflection(false);
         }
-
-        if (verbose) {
-            plugin.getLogger().info("Reflection is " + isUsingReflection());
-        }
+        verbose("Reflection is " + isUsingReflection());
 
         if (plugin.getConfig().getBoolean("spawnersUnstackable", false)) {
             nmsProvider.setSpawnersUnstackable();
@@ -389,7 +383,6 @@ public class SilkUtil {
      */
     @Nullable
     public String searchItemMeta(ItemMeta meta) {
-        String entityID = null;
         if (plugin.getConfig().getBoolean("useMetadata", true) && meta.hasLore() && !meta.getLore().isEmpty()) {
             for (String entityIDString : meta.getLore()) {
                 if (!entityIDString.contains("entityID")) {
@@ -401,7 +394,7 @@ public class SilkUtil {
                 }
             }
         }
-        return entityID;
+        return null;
     }
 
     /**
@@ -726,11 +719,10 @@ public class SilkUtil {
      * @return the found string
      */
     public String getCustomSpawnerName(String mobName) {
-        if (plugin.mobs.contains("creatures." + mobName + ".spawnerName")) {
-            return ChatColor.translateAlternateColorCodes('&',
-                    plugin.mobs.getString("creatures." + mobName + ".spawnerName", "Monster Spawner"));
+        if (plugin.getMobs().contains("creatures." + mobName + ".spawnerName")) {
+            return Common.colorize(plugin.getMobs().getString("creatures." + mobName + ".spawnerName", "Monster Spawner"));
         }
-        return ChatColor.translateAlternateColorCodes('&', plugin.getLocalization().getString("spawnerName", "Monster Spawner"));
+        return Common.colorize(plugin.getLocalization().getString("spawnerName", "Monster Spawner"));
     }
 
     /**
