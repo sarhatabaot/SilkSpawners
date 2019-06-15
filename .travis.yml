@@ -1,1 +1,4 @@
 language: java
+before_install:
+  - wget -P libs/ https://cdn.getbukkit.org/spigot/spigot-1.14.2.jar
+  - mvn validate
