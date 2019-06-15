@@ -427,6 +427,31 @@ creatures:
     enableCraftingSpawner: true
     enableSpawnEggOverride: true
     displayName: Parrot
+  fox:
+    enable: true
+    enableCraftingSpawner: true
+    enableSpawnEggOverride: true
+    displayName: Fox
+  panda:
+    enable: true
+    enableCraftingSpawner: true
+    enableSpawnEggOverride: true
+    displayName: Panda
+  drowned:
+    enable: true
+    enableCraftingSpawner: true
+    enableSpawnEggOverride: true
+    displayName: Drowned
+  illusioner:
+    enable: true
+    enableCraftingSpawner: true
+    enableSpawnEggOverride: true
+    displayName: Illusioner
+  wandering_trader:
+    enable: true
+    enableCraftingSpawner: true
+    enableSpawnEggOverride: true
+    displayName: Wandering Trader
 
   # Non-mob vanilla entities
   # Enable on your own risk, some might work, some not!
