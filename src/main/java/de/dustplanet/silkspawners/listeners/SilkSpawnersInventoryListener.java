@@ -77,7 +77,7 @@ public class SilkSpawnersInventoryListener implements Listener {
             su.sendMessage(player,
                     ChatColor
                             .translateAlternateColorCodes('\u0026',
-                                    plugin.localization.getString("noPermissionCraft").replace("%ID%", entityID))
+                                    plugin.getLocalization().getString("noPermissionCraft").replace("%ID%", entityID))
                             .replace("%creature%", spawnerName));
             return;
         }
