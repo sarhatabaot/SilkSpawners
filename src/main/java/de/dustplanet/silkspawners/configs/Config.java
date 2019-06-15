@@ -19,8 +19,6 @@ public class Config extends AbstractConfiguration {
 
     private void loadDefaultConfig() {
         config.options().header("See documentation at https://dev.bukkit.org/projects/silkspawners/pages/configuration");
-        config.addDefault("autoUpdater", true);
-        config.addComment("autoUpdater", "", "# Should the plugin automatically update if an update is available?");
         config.addDefault("permissionExplode", false);
         config.addComment("permissionExplode", "", "# Should a permission be required when a spawner explodes by TNT to achieve a drop");
         config.addDefault("useWorldGuard", true);
@@ -36,7 +34,7 @@ public class Config extends AbstractConfiguration {
         config.addDefault("defaultCreature", 90);
         config.addComment("defaultCreature", "",
                 "# When generic spawner items are placed, spawn this creature (e.g. from /give or other plugins)",
-                "# PIG (90) is Minecraft default (put NAMES or IDs here!)");
+                "# PIG is Minecraft default (put NAMES here!)");
         config.addDefault("spawnerCommandReachDistance", 6);
         config.addComment("spawnerCommandReachDistance", "", "# How far is the spawner reachable with your crosshair (disable with -1)");
         config.addDefault("minSilkTouchLevel", 1);

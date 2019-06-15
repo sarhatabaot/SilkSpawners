@@ -225,16 +225,16 @@ public class SilkSpawners extends JavaPlugin {
         }
     }
 
-    public static void debug(String message){
+    public static void verbose(String message){
         if(SilkSpawners.getInstance().config.getBoolean("verboseConfig",false)){
-            getInstance().getLogger().info("DEBUG "+message);
+            getInstance().getLogger().info("VERBOSE "+message);
         }
     }
 
-    public static void debug(String... messages){
+    public static void verbose(String... messages){
         if(SilkSpawners.getInstance().config.getBoolean("verboseConfig",false)){
             for(String message: messages)
-                getInstance().getLogger().info("DEBUG "+ message);
+                getInstance().getLogger().info("VERBOSE "+ message);
         }
     }
 
@@ -242,7 +242,7 @@ public class SilkSpawners extends JavaPlugin {
     private void loadRecipes() {
         boolean verbose = config.getBoolean("verboseConfig", false);
 
-        debug("Loading custom recipes");
+        verbose("Loading custom recipes");
 
 
         // Add "base" recipe for eggs containing no durability (not from SilkSpawners)
@@ -321,7 +321,7 @@ public class SilkSpawners extends JavaPlugin {
 
             // If the mob is disabled, skip it
             if (!mobs.getBoolean("creatures." + entityID + ".enableCraftingSpawner", true)) {
-                debug("Skipping crafting recipe for " + entityID + " per config");
+                verbose("Skipping crafting recipe for " + entityID + " per config");
                 continue;
             }
 
@@ -336,7 +336,7 @@ public class SilkSpawners extends JavaPlugin {
             }
 
             // Debug output
-            debug("Amount of " + entityID + ": " + amount);
+            verbose("Amount of " + entityID + ": " + amount);
 
             // Output is a spawner of this type with a custom amount
             ItemStack spawnerItem = silkUtil.newSpawnerItem(entityID, silkUtil.getCustomSpawnerName(entityID), amount, true);
@@ -381,7 +381,7 @@ public class SilkSpawners extends JavaPlugin {
                 }
 
                 // Debug output
-                debug("Shape of " + entityID + ":",top,middle,bottom);
+                verbose("Shape of " + entityID + ":",top,middle,bottom);
 
                 // Set the shape
                 recipe.shape(top, middle, bottom);
@@ -404,14 +404,13 @@ public class SilkSpawners extends JavaPlugin {
                 }
 
                 // Debug output
-                debug(String.format("Ingredients of %s:",entityID), ingredientsList.toString());
+                verbose(String.format("Ingredients of %s:",entityID), ingredientsList.toString());
 
                 List<String> shape = Arrays.asList(recipe.getShape());
                 // We have an ingredient that is not in our shape. Ignore it then
                 if (shapeContainsIngredient(shape, 'X')) {
-                    if (verbose) {
-                        getLogger().info("shape of " + entityID + " contains X");
-                    }
+                    verbose("shape of " + entityID + " contains X");
+
                     // Use the right egg!
                     // TODO
                     recipe.setIngredient('X', silkUtil.nmsProvider.getSpawnEggMaterial(), 0);
