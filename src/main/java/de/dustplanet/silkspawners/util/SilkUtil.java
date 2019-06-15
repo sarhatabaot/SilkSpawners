@@ -126,7 +126,7 @@ public class SilkUtil {
      * @return true if a valid NMSHandler could be found, false for not
      */
     private boolean setupNMSProvider() {
-        String version = plugin.getNMSVersion();
+        String version = plugin.getNmsVersion();
         
         // Rare cases might trigger API usage before SilkSpawners
         if (version == null) {
@@ -350,10 +350,7 @@ public class SilkUtil {
         }
         // If we still haven't found our entityID, then check for item lore or name
         if (item.hasItemMeta()) {
-            String metaEntityID = searchItemMeta(item.getItemMeta());
-            if (metaEntityID != null) {
-                return metaEntityID;
-            }
+            return searchItemMeta(item.getItemMeta());
         }
         return null;
     }
@@ -468,7 +465,6 @@ public class SilkUtil {
             }
         }
 
-        @SuppressWarnings("deprecation")
         EntityType ct = EntityType.fromName(entity);
         if (ct == null) {
             throw new IllegalArgumentException("Failed to find creature type for " + entity);
@@ -533,12 +529,7 @@ public class SilkUtil {
         // Does the item (e.g. crafted) as a lore and we set the NBT tag? Remove it
         if (isUsingReflection() && meta.hasLore()) {
             List<String> lore = meta.getLore();
-            Iterator<String> it = lore.iterator();
-            while (it.hasNext()) {
-                if (it.next().contains("entityID")) {
-                    it.remove();
-                }
-            }
+            lore.removeIf(s -> s.contains("entityID"));
             meta.setLore(lore);
         }
         item.setItemMeta(meta);
@@ -577,7 +568,8 @@ public class SilkUtil {
         StringBuilder builder = new StringBuilder();
         for (String displayName : displayNameToMobID.keySet()) {
             displayName = displayName.replace(" ", "");
-            builder.append(displayName + ", ");
+            builder.append(displayName);
+            builder.append(", ");
         }
         // Strip last comma out
         String message = builder.toString();
@@ -747,7 +739,9 @@ public class SilkUtil {
      *
      * @param receiver the receiver of the message
      * @param messages message with support for newlines
+     * @deprecated use Common.tell instead.
      */
+    @Deprecated
     public void sendMessage(CommandSender receiver, String messages) {
         receiver.sendMessage(messages.split("\n"));
     }
