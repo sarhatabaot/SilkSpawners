@@ -1,4 +1,5 @@
 # SilkSpawners
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/50e91c81247f49369eef69d4c8157d03)](https://app.codacy.com/app/TreasureIslandMinecraft/SilkSpawners?utm_source=github.com&utm_medium=referral&utm_content=sarhatabaot/SilkSpawners&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://ci.dustplanet.de/job/SilkSpawners/badge/icon)](https://ci.dustplanet.de/job/SilkSpawners/)
 [![Build Status](https://travis-ci.org/timbru31/SilkSpawners.svg?branch=master)](https://travis-ci.org/timbru31/SilkSpawners)
 [![Build status](https://ci.appveyor.com/api/projects/status/3uvrma09rul7myk5?svg=true)](https://ci.appveyor.com/project/timbru31/silkspawners)
