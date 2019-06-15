@@ -8,6 +8,8 @@
 
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue.svg)](LICENSE.md)
 
+## Note
+This version is for use on the TreasureIslandMC servers. It doesn't include support for previous version but rather only the latest 1.14 version.
 ## Info
 This CraftBukkit plugin adds a way to obtain the spawner with the corresponding mob when mined with SilkTouch and offers a various range of changing spawners.
 * Crafting of each spawner (own recipe for every mob if wanted)
