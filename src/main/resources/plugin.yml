@@ -1,16 +1,15 @@
 name: SilkSpawners
 author: xGhOsTkiLLeRx
-authors: [mushroomhostage]
+authors:
+  - mushroomhostage
+  - sarhatabaot
 main: de.dustplanet.silkspawners.SilkSpawners
 version: ${project.version}
 url: https://dev.bukkit.org/projects/silkspawners
 description: pick up and move monster spawners using silk touch
 api-version: "1.13"
-commands:
-  silkspawners:
-    aliases: [silkspawner, ss, spawner, silk, spawnersilk, egg, eg, eggs]
-    description: Command for changing and getting spawners or spawn eggs
-    usage: /<command> help
+softdepend: [WorldGuard, BarAPI]
+loadbefore: [MergedSpawner, ShopGUIPlus]
 permissions:
   silkspawners.*:
     children:
@@ -48,5 +47,4 @@ permissions:
   silkspawners.help:
     description: Allows you to see the help menu
     default: true
-softdepend: [WorldGuard, BarAPI, Factions, Feudal]
-loadbefore: [MergedSpawner, ShopGUIPlus]
+
