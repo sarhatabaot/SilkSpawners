@@ -2,10 +2,8 @@ package de.dustplanet.silkspawners.listeners;
 
 import de.dustplanet.silkspawners.SilkSpawners;
 import de.dustplanet.silkspawners.events.SilkSpawnersSpawnerBreakEvent;
-import de.dustplanet.silkspawners.events.SilkSpawnersSpawnerPlaceEvent;
 import de.dustplanet.silkspawners.util.Common;
 import de.dustplanet.silkspawners.util.SilkUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -14,29 +12,28 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.HashMap;
 import java.util.Random;
 
+
 /**
  * Handle the placement and breaking of a spawner.
  *
  * @author (former) mushroomhostage
  * @author xGhOsTkiLLeRx
+ * @author sarhatabaot
  */
-@Deprecated
-public class SilkSpawnersBlockListener implements Listener {
-    private SilkSpawners plugin;
-    private SilkUtil su;
+public class OnBlockBreakListener extends SilkListener {
     private Random rnd;
 
-    public SilkSpawnersBlockListener(SilkSpawners instance, SilkUtil util) {
-        plugin = instance;
-        su = util;
-        rnd = new Random();
+    public OnBlockBreakListener() {
+        super();
+        setName("OnBlockBreakListener");
+        verbose();
+        this.rnd = new Random();
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -50,15 +47,15 @@ public class SilkSpawnersBlockListener implements Listener {
         Block block = event.getBlock();
         Player player = event.getPlayer();
 
-        if (block.getType() != su.nmsProvider.getSpawnerMaterial()) {
+        if (block.getType() != getSilkUtil().nmsProvider.getSpawnerMaterial()) {
             return;
         }
 
-        if (!su.canBuildHere(player, block.getLocation())) {
+        if (!getSilkUtil().canBuildHere(player, block.getLocation())) {
             return;
         }
 
-        String entityID = su.getSpawnerEntityID(block);
+        String entityID = getSilkUtil().getSpawnerEntityID(block);
 
         SilkSpawnersSpawnerBreakEvent breakEvent = new SilkSpawnersSpawnerBreakEvent(player, block, entityID);
         plugin.getServer().getPluginManager().callEvent(breakEvent);
@@ -67,17 +64,17 @@ public class SilkSpawnersBlockListener implements Listener {
             return;
         }
 
-        entityID = su.getDisplayNameToMobID().get(breakEvent.getEntityID());
+        entityID = getSilkUtil().getDisplayNameToMobID().get(breakEvent.getEntityID());
 
         plugin.informPlayer(player, Common.colorize(plugin.getLocalization().getString("spawnerBroken"))
-                .replace("%creature%", su.getCreatureName(entityID)));
+                .replace("%creature%", getSilkUtil().getCreatureName(entityID)));
 
-        ItemStack tool = su.nmsProvider.getItemInHand(player);
-        boolean validToolAndSilkTouch = su.isValidItemAndHasSilkTouch(tool);
+        ItemStack tool = getSilkUtil().nmsProvider.getItemInHand(player);
+        boolean validToolAndSilkTouch = getSilkUtil().isValidItemAndHasSilkTouch(tool);
 
         World world = player.getWorld();
 
-        String mobName = su.getCreatureName(entityID).toLowerCase().replace(" ", "");
+        String mobName = getSilkUtil().getCreatureName(entityID).toLowerCase().replace(" ", "");
 
         if (plugin.config.getBoolean("noDropsCreative", true) && player.getGameMode() == GameMode.CREATIVE) {
             return;
@@ -127,7 +124,7 @@ public class SilkSpawnersBlockListener implements Listener {
                     } else {
                         amount = plugin.config.getInt("dropAmount", 1);
                     }
-                    spawnerItemStack = su.newSpawnerItem(entityID, su.getCustomSpawnerName(entityID), amount, false);
+                    spawnerItemStack = getSilkUtil().newSpawnerItem(entityID, getSilkUtil().getCustomSpawnerName(entityID), amount, false);
                 }
                 if (spawnerItemStack == null) {
                     plugin.getLogger().warning("Skipping dropping of spawner, since item is null");
@@ -156,7 +153,7 @@ public class SilkSpawnersBlockListener implements Listener {
                     dropChance = plugin.config.getInt("eggDropChance", 100);
                 }
                 if (randomNumber < dropChance) {
-                    world.dropItemNaturally(block.getLocation(), su.newEggItem(entityID, 1));
+                    world.dropItemNaturally(block.getLocation(), getSilkUtil().newEggItem(entityID, 1));
                 }
             }
 
@@ -169,62 +166,9 @@ public class SilkSpawnersBlockListener implements Listener {
                     dropChance = plugin.config.getInt("destroyDropChance", 100);
                 }
                 if (randomNumber < dropChance) {
-                    world.dropItem(block.getLocation(), new ItemStack(su.nmsProvider.getIronFenceMaterial(), dropBars));
+                    world.dropItem(block.getLocation(), new ItemStack(getSilkUtil().nmsProvider.getIronFenceMaterial(), dropBars));
                 }
             }
         }
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void onBlockPlace(BlockPlaceEvent event) {
-        boolean isFakeEvent = !BlockPlaceEvent.class.equals(event.getClass());
-        if (isFakeEvent) {
-            return;
-        }
-
-        Block blockPlaced = event.getBlockPlaced();
-        if (blockPlaced.getType() != su.nmsProvider.getSpawnerMaterial()) {
-            return;
-        }
-        Player player = event.getPlayer();
-        if (!su.canBuildHere(player, blockPlaced.getLocation())) {
-            return;
-        }
-        ItemStack item = event.getItemInHand();
-        String entityID = su.getStoredSpawnerItemEntityID(item);
-        boolean defaultID = false;
-        if (entityID == null) {
-            defaultID = true;
-            entityID = su.getDefaultEntityID();
-        }
-
-        SilkSpawnersSpawnerPlaceEvent placeEvent = new SilkSpawnersSpawnerPlaceEvent(player, blockPlaced, entityID);
-        plugin.getServer().getPluginManager().callEvent(placeEvent);
-
-        if (placeEvent.isCancelled()) {
-            event.setCancelled(true);
-            return;
-        }
-
-        entityID = placeEvent.getEntityID();
-
-        String creatureName = su.getCreatureName(entityID);
-        String spawnerName = creatureName.toLowerCase().replace(" ", "");
-
-        if (!player.hasPermission("silkspawners.place." + spawnerName)) {
-            event.setCancelled(true);
-            Common.tell(player,plugin.getLocalization().getString("noPermissionPlace").replace("%ID%", entityID)
-                    .replace("%creature%", creatureName));
-            return;
-        }
-
-        if (defaultID) {
-            plugin.informPlayer(player, Common.colorize(plugin.getLocalization().getString("placingDefault")));
-        } else {
-            plugin.informPlayer(player, Common.colorize(plugin.getLocalization().getString("spawnerPlaced"))
-                    .replace("%creature%", su.getCreatureName(entityID)));
-        }
-
-        su.setSpawnerEntityID(blockPlaced, entityID);
     }
 }

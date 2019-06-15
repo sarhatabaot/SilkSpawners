@@ -24,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
  * @author (former) mushroomhostage
  * @author xGhOsTkiLLeRx
  */
-
+@Deprecated
 public class SilkSpawnersPlayerListener implements Listener {
     private SilkSpawners plugin;
     private SilkUtil su;
@@ -137,7 +137,7 @@ public class SilkSpawnersPlayerListener implements Listener {
                 } else if (plugin.config.getBoolean("spawnEggOverride", false)) {
                     boolean allowed = plugin.config.getBoolean("spawnEggOverrideSpawnDefault", true);
                     if (entityID != null) {
-                        allowed = plugin.mobs.getBoolean("creatures." + entityID + ".enableSpawnEggOverrideAllowSpawn", allowed);
+                        allowed = plugin.getMobs().getBoolean("creatures." + entityID + ".enableSpawnEggOverrideAllowSpawn", allowed);
                     }
                     // Deny spawning
                     if (!allowed) {
@@ -154,10 +154,7 @@ public class SilkSpawnersPlayerListener implements Listener {
                     // https://github.com/Bukkit/CraftBukkit/blob/master/src/main/java/net/minecraft/server/ItemMonsterEgg.java#L22
 
                     // Notify
-                    plugin.informPlayer(player,
-                            ChatColor
-                                    .translateAlternateColorCodes('\u0026',
-                                            plugin.getLocalization().getString("spawning").replace("%ID%", entityID))
+                    plugin.informPlayer(player, plugin.getLocalization().getString("spawning").replace("%ID%", entityID)
                                     .replace("%creature%", su.getCreatureName(entityID)));
 
                     // Spawn on top of targeted block

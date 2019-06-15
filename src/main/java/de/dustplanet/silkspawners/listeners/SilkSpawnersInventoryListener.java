@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
  * @author (former) mushroomhostage
  * @author xGhOsTkiLLeRx
  */
-
+@Deprecated
 public class SilkSpawnersInventoryListener implements Listener {
     private SilkSpawners plugin;
     private SilkUtil su;
