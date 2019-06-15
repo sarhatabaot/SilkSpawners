@@ -42,37 +42,43 @@ public class OnEntityExplodeListener extends SilkListener {
             return;
         }
 
-        boolean drop = true;
+        // Check if a spawner block is on the list
+        if (!isDrop(entity)) {
+            return;
+        }
+
+        for (Block block : event.blockList()) {
+            // We have a spawner
+            if (block.getType() == getSilkUtil().nmsProvider.getSpawnerMaterial()) {
+                // Roll the dice
+                int randomNumber = rnd.nextInt(100);
+                String entityID = getSilkUtil().getSpawnerEntityID(block);
+                // Check if we should drop a block
+                if (randomNumber < getExplosionDropChance(entityID)) {
+                    World world = block.getWorld();
+                    world.dropItemNaturally(block.getLocation(),
+                            getSilkUtil().newSpawnerItem(entityID, getSilkUtil().getCustomSpawnerName(entityID), 1, false));
+                }
+            }
+        }
+
+    }
+
+    private int getExplosionDropChance(String entityID){
+        if (getPlugin().getMobs().contains("creatures." + entityID + ".explosionDropChance")) {
+            return getPlugin().getMobs().getInt("creatures." + entityID + ".explosionDropChance", 100);
+        }
+        return getPlugin().config.getInt("explosionDropChance", 100);
+    }
+
+    private boolean isDrop(Entity entity) {
         if (getPlugin().config.getBoolean("permissionExplode", false) && entity instanceof TNTPrimed) {
             Entity igniter = ((TNTPrimed) entity).getSource();
             if (igniter instanceof Player) {
                 Player sourcePlayer = (Player) igniter;
-                drop = sourcePlayer.hasPermission("silkspawners.explodedrop");
+                return sourcePlayer.hasPermission("silkspawners.explodedrop");
             }
         }
-
-        // Check if a spawner block is on the list
-        if (drop) {
-            for (Block block : event.blockList()) {
-                // We have a spawner
-                if (block.getType() == getSilkUtil().nmsProvider.getSpawnerMaterial()) {
-                    // Roll the dice
-                    int randomNumber = rnd.nextInt(100);
-                    String entityID = getSilkUtil().getSpawnerEntityID(block);
-                    // Check if we should drop a block
-                    int dropChance = 0;
-                    if (getPlugin().getMobs().contains("creatures." + entityID + ".explosionDropChance")) {
-                        dropChance = getPlugin().getMobs().getInt("creatures." + entityID + ".explosionDropChance", 100);
-                    } else {
-                        dropChance = getPlugin().config.getInt("explosionDropChance", 100);
-                    }
-                    if (randomNumber < dropChance) {
-                        World world = block.getWorld();
-                        world.dropItemNaturally(block.getLocation(),
-                                getSilkUtil().newSpawnerItem(entityID, getSilkUtil().getCustomSpawnerName(entityID), 1, false));
-                    }
-                }
-            }
-        }
+        return false;
     }
 }
