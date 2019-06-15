@@ -83,7 +83,7 @@ public class SilkSpawners extends JavaPlugin {
 
         // Commands
         Common.registerCommand(new SpawnerCommand());
-        getServer().getPluginCommand("silkspawners").setTabCompleter(new SilkSpawnersTabCompleter());
+        getCommand("silkspawners").setTabCompleter(new SilkSpawnersTabCompleter());
 
         // Listeners
         registerListeners();

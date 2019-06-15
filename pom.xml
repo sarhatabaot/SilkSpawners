@@ -5,8 +5,9 @@
     <groupId>de.dustplanet</groupId>
     <artifactId>SilkSpawners</artifactId>
     <version>6.1.1-TI-BETA</version>
-    <name>SilkSpawners</name>
     <packaging>jar</packaging>
+
+    <name>SilkSpawners</name>
     <url>https://dev.bukkit.org/projects/silkspawners/</url>
 
     <properties>
