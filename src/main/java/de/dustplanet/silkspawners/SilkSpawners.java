@@ -1,5 +1,6 @@
 package de.dustplanet.silkspawners;
 
+import de.dustplanet.silkspawners.commands.SilkSpawnersTabCompleter;
 import de.dustplanet.silkspawners.commands.SpawnerCommand;
 import de.dustplanet.silkspawners.configs.Config;
 import de.dustplanet.silkspawners.configs.Localization;
@@ -82,6 +83,7 @@ public class SilkSpawners extends JavaPlugin {
 
         // Commands
         Common.registerCommand(new SpawnerCommand());
+        getServer().getPluginCommand("silkspawners").setTabCompleter(new SilkSpawnersTabCompleter());
 
         // Listeners
         registerListeners();
@@ -161,7 +163,7 @@ public class SilkSpawners extends JavaPlugin {
         Permission perm = new Permission("silkspawners." + permissionPart + ".*", description, permDefault, childPermissions);
         try {
             getServer().getPluginManager().addPermission(perm);
-        } catch (@SuppressWarnings("unused") IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             getLogger().info("Permission " + perm.getName() + " is already registered. Skipping...");
         }
     }
@@ -324,60 +326,33 @@ public class SilkSpawners extends JavaPlugin {
                 continue;
             }
 
-            // Default amount
-            int amount = 1;
-
-            // Per mob amount
-            if (mobs.contains("creatures." + entityID + ".recipe.amount")) {
-                amount = mobs.getInt("creatures." + entityID + ".recipe.amount", 1);
-            } else {
-                amount = config.getInt("recipeAmount", 1);
-            }
-
             // Debug output
-            verbose("Amount of " + entityID + ": " + amount);
+            verbose("Amount of " + entityID + ": " + getPerMobAmount(entityID));
 
             // Output is a spawner of this type with a custom amount
-            ItemStack spawnerItem = silkUtil.newSpawnerItem(entityID, silkUtil.getCustomSpawnerName(entityID), amount, true);
+            ItemStack spawnerItem = silkUtil.newSpawnerItem(entityID, silkUtil.getCustomSpawnerName(entityID), getPerMobAmount(entityID), true);
             ShapedRecipe recipe = null;
             try {
                 recipe = new ShapedRecipe(new NamespacedKey(this, entityID), spawnerItem);
-            } catch (Exception | Error e) {
+            } catch (Exception e) {
                 recipe = new ShapedRecipe(spawnerItem);
             }
 
             /*
-             * Default is A A A A B A A A A where A is IRON_FENCE and B is MONSTER_EGG
+             * Default is
+             * A A A
+             * A B A
+             * A A A
+             * where A is IRON_FENCE and B is MONSTER_EGG
              */
 
             // We try to use the custom recipe, but we don't know if the user
             // changed it right ;)
             try {
                 // Per type recipe?
-                String top;
-                String middle;
-                String bottom;
-
-                // Top
-                if (mobs.contains("creatures." + entityID + ".recipe.top")) {
-                    top = mobs.getString("creatures." + entityID + ".recipe.top", "AAA");
-                } else {
-                    top = config.getString("recipeTop", "AAA");
-                }
-
-                // Middle
-                if (mobs.contains("creatures." + entityID + ".recipe.middle")) {
-                    middle = mobs.getString("creatures." + entityID + ".recipe.middle", "AXA");
-                } else {
-                    middle = config.getString("recipeMiddle", "AXA");
-                }
-
-                // Bottom
-                if (mobs.contains("creatures." + entityID + ".recipe.bottom")) {
-                    bottom = mobs.getString("creatures." + entityID + ".recipe.bottom", "AAA");
-                } else {
-                    bottom = config.getString("recipeBottom", "AAA");
-                }
+                String top = getTopRecipe(entityID);
+                String middle = getMiddleRecipe(entityID);
+                String bottom = getBottomRecipe(entityID);
 
                 // Debug output
                 verbose("Shape of " + entityID + ":",top,middle,bottom);
@@ -480,6 +455,35 @@ public class SilkSpawners extends JavaPlugin {
         if (player.hasPermission("silkspawners.info")) {
             Common.tell(player, message);
         }
+    }
+
+    private String getTopRecipe(String entityID) {
+        if (mobs.contains("creatures." + entityID + ".recipe.top")) {
+            return mobs.getString("creatures." + entityID + ".recipe.top", "AAA");
+        }
+        return config.getString("recipeTop", "AAA");
+    }
+
+    private String getMiddleRecipe(String entityID){
+        if (mobs.contains("creatures." + entityID + ".recipe.middle")) {
+            return  mobs.getString("creatures." + entityID + ".recipe.middle", "AXA");
+        }
+        return config.getString("recipeMiddle", "AXA");
+    }
+
+    private String getBottomRecipe(String entityID){
+        if (mobs.contains("creatures." + entityID + ".recipe.bottom")) {
+            return mobs.getString("creatures." + entityID + ".recipe.bottom", "AAA");
+        } 
+        return config.getString("recipeBottom", "AAA");
+
+    }
+
+    private int getPerMobAmount(String entityID){
+        if (mobs.contains("creatures." + entityID + ".recipe.amount")) {
+            return mobs.getInt("creatures." + entityID + ".recipe.amount", 1);
+        }
+        return config.getInt("recipeAmount", 1);
     }
 
     public void reloadConfigs() {

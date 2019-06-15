@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+
 /**
  * @author sarhatabaot
  */
@@ -27,7 +28,7 @@ public abstract class PlayerCommand extends Command {
     @Override
     public boolean execute(@NotNull final CommandSender commandSender, @NotNull final String label, @NotNull final String[] args) {
         if(!(commandSender instanceof Player)){
-            Common.tell(commandSender, "&cYou must be a player to use this command.");
+            Common.tell(commandSender, "&cYou must be in-game to use this command.");
             return false;
         }
         this.player = (Player) commandSender;
@@ -35,6 +36,7 @@ public abstract class PlayerCommand extends Command {
         run(player,args);
         return true;
     }
+
 
     protected void tell(String message){
         Common.tell(player,prefix+message);
