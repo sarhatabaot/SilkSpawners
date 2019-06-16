@@ -2,6 +2,11 @@ package de.dustplanet.silkspawners.configs;
 
 import java.util.ArrayList;
 
+/* TODO
+ * Start move to default configuration from within bukkit.
+ * It is possible to get the default values without Abstract Configurations
+ */
+@Deprecated
 public class Mobs extends AbstractConfiguration {
     public Mobs(CommentedConfiguration config) {
         super(config);

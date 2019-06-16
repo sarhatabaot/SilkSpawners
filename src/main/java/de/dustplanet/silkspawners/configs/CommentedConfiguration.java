@@ -19,6 +19,7 @@ import java.util.HashMap;
  * @author ElgarL (updated version used by Towny)
  * @author xGhOsTkiLLeRx
  */
+@Deprecated
 public class CommentedConfiguration extends YamlConfiguration {
     private HashMap<String, String> comments;
     private File file;

@@ -4,6 +4,7 @@ import org.bukkit.Material;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class Config extends AbstractConfiguration {
 
     public Config(CommentedConfiguration config) {

@@ -1,5 +1,6 @@
 package de.dustplanet.silkspawners.configs;
 
+@Deprecated
 public class Localization extends AbstractConfiguration {
 
     public Localization(CommentedConfiguration config) {
