@@ -20,7 +20,7 @@ import java.util.Arrays;
  * @author xGhOsTkiLLeRx
  */
 
-public class SpawnerCommand extends PlayerCommand {
+public class SpawnerCommand extends SilkSpawnersCommand {
     private SilkUtil su;
     private SilkSpawners plugin;
 
@@ -31,14 +31,14 @@ public class SpawnerCommand extends PlayerCommand {
         setDescription("Command for changing and getting spawners or spawn eggs");
         setUsage("/<command> help");
         setPermission("silkspawners.help");
-        setAliases(Arrays.asList("ss", "spawner", "silk", "spawnersilk", "egg", "eg", "eggs"));
+        setAliases(Arrays.asList("ss", "spawner", "silk", "spawnersilk", "egg", "eg", "eggs","silkspawner"));
 
         plugin = SilkSpawners.getInstance();
         su = plugin.getSilkUtil();
     }
 
     @Override
-    public void run(final @NotNull Player player, @NotNull final String[] args) {
+    public void run(final @NotNull CommandSender sender, @NotNull final String[] args) {
         switch (args.length) {
             case 1:
                 switch (args[0].toLowerCase()) {
@@ -47,17 +47,21 @@ public class SpawnerCommand extends PlayerCommand {
                         break;
                     case "all":
                     case "list":
-                        handleList(player);
+                        handleList(sender);
                         break;
                     case "reload":
                     case "rl":
-                        handleReload(player);
+                        handleReload(sender);
                         break;
                     case "view":
-                        handleView(player);
+                        if(!(sender instanceof Player)) {
+                            tell("&cYou must be in-game to use this command.");
+                            return;
+                        }
+                        handleView(sender);
                         break;
                     default:
-                        handleUnknownArgument(player);
+                        handleUnknownArgument(sender);
                         break;
                 }
                 break;
@@ -65,10 +69,14 @@ public class SpawnerCommand extends PlayerCommand {
                 switch (args[0].toLowerCase()) {
                     case "change":
                     case "set":
-                        handleChange(player, args[1]);
+                        if(!(sender instanceof Player)) {
+                            tell("&cYou must be in-game to use this command.");
+                            return;
+                        }
+                        handleChange(sender, args[1]);
                         break;
                     default:
-                        handleUnknownArgument(player);
+                        handleUnknownArgument(sender);
                         break;
                 }
                 break;
@@ -76,10 +84,10 @@ public class SpawnerCommand extends PlayerCommand {
                 switch (args[0].toLowerCase()) {
                     case "give":
                     case "add":
-                        handleGive(player, args[1], args[2].toLowerCase(), null);
+                        handleGive(sender, args[1], args[2].toLowerCase(), null);
                         break;
                     default:
-                        handleUnknownArgument(player);
+                        handleUnknownArgument(sender);
                         break;
                 }
                 break;
@@ -87,15 +95,15 @@ public class SpawnerCommand extends PlayerCommand {
                 switch (args[0].toLowerCase()) {
                     case "give":
                     case "add":
-                        handleGive(player, args[1], args[2].toLowerCase(), args[3]);
+                        handleGive(sender, args[1], args[2].toLowerCase(), args[3]);
                         break;
                     default:
-                        handleUnknownArgument(player);
+                        handleUnknownArgument(sender);
                         break;
                 }
                 break;
             default:
-                handleUnknownArgument(player);
+                handleUnknownArgument(sender);
                 break;
         }
     }
@@ -353,7 +361,7 @@ public class SpawnerCommand extends PlayerCommand {
     }
 
     private void handleHelp() {
-        if (getPlayer().hasPermission("silkspawners.help")) {
+        if (getSender().hasPermission("silkspawners.help")) {
             String message = plugin.getLocalization().getString("help").replace("%version%", plugin.getDescription().getVersion());
             tellNoPrefix(message);
         } else {
