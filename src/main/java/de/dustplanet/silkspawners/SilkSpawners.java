@@ -1,10 +1,9 @@
 package de.dustplanet.silkspawners;
 
-import de.dustplanet.silkspawners.commands.SilkSpawnersTabCompleter;
 import de.dustplanet.silkspawners.commands.SpawnerCommand;
-import de.dustplanet.silkspawners.configs.Config;
-import de.dustplanet.silkspawners.configs.Localization;
-import de.dustplanet.silkspawners.configs.Mobs;
+import de.dustplanet.silkspawners.configs.OldConfig;
+import de.dustplanet.silkspawners.configs.OldLocalization;
+import de.dustplanet.silkspawners.configs.OldMobs;
 import de.dustplanet.silkspawners.listeners.*;
 import de.dustplanet.silkspawners.configs.CommentedConfiguration;
 import de.dustplanet.silkspawners.util.Common;
@@ -15,6 +14,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Cat;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -169,7 +169,7 @@ public class SilkSpawners extends JavaPlugin {
     }
 
     private void initializeConfigs() {
-        // Config
+        // OldConfig
         File configFile = new File(getDataFolder(), "config.yml");
         // One file and the folder not existent
         if (!configFile.exists() && !getDataFolder().exists() && !getDataFolder().mkdirs()) {
@@ -183,13 +183,13 @@ public class SilkSpawners extends JavaPlugin {
             copy("config.yml", configFile);
         }
 
-        // Localization
-        File localizationFile = new File(getDataFolder(), "localization.yml");
+        // OldLocalization
+        File localizationFile = new File(getDataFolder(), "localization/localization.yml");
         if (!localizationFile.exists()) {
-            copy("localization.yml", localizationFile);
+            copy("localization/localization.yml", localizationFile);
         }
 
-        // Mobs
+        // OldMobs
         File mobsFile = new File(getDataFolder(), "mobs.yml");
         if (!mobsFile.exists()) {
             copy("mobs.yml", mobsFile);
@@ -197,13 +197,13 @@ public class SilkSpawners extends JavaPlugin {
 
         // Load configs
         config = new CommentedConfiguration(configFile);
-        new Config(config).loadConfig();
+        new OldConfig(config).loadConfig();
 
         setLocalization(new CommentedConfiguration(localizationFile));
-        new Localization(getLocalization()).loadConfig();
+        new OldLocalization(getLocalization()).loadConfig();
 
         mobs = new CommentedConfiguration(mobsFile);
-        new Mobs(mobs).loadConfig();
+        new OldMobs(mobs).loadConfig();
 
         migrateConfig();
     }
@@ -266,10 +266,10 @@ public class SilkSpawners extends JavaPlugin {
         // Set the shape
         baseSpawnerRecipe.shape(baseSpawnerTop, baseSpawnerMiddle, baseSpawnerBottom);
 
-        List<String> baseSpawnerIngredientsList = config.getStringList("ingredients");
+        List<String> baseSpawnerIngredientsList = getConfig().getStringList("ingredients");
 
         // Security first
-        if (baseSpawnerIngredientsList != null && !baseSpawnerIngredientsList.isEmpty()) {
+        if (!baseSpawnerIngredientsList.isEmpty()) {
             try {
                 List<String> baseSpawnerShape = Arrays.asList(baseSpawnerRecipe.getShape());
                 // We have an ingredient that is not in our shape. Ignore it then

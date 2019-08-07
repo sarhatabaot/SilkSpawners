@@ -6,7 +6,6 @@ package de.dustplanet.silkspawners.configs;
  * @author (former) mushroomhostage
  * @author xGhOsTkiLLeRx
  */
-@Deprecated
 public abstract class AbstractConfiguration {
     protected CommentedConfiguration config;
 

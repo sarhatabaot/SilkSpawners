@@ -5,7 +5,6 @@ package de.dustplanet.silkspawners.configs;
  * Start move to default configuration from within bukkit.
  * It is possible to get the default values without Abstract Configurations
  */
-@Deprecated
 public class OldMobs extends AbstractConfiguration {
     public OldMobs(CommentedConfiguration config) {
         super(config);
