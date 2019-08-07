@@ -32,8 +32,8 @@
             <url>https://maven.sk89q.com/repo/</url>
         </repository>
         <repository>
-            <id>confuser-repo</id>
-            <url>https://ci.frostcast.net/plugin/repository/everything</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -81,9 +81,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.confuser</groupId>
+            <groupId>com.github.confuser</groupId>
             <artifactId>BarAPI</artifactId>
-            <version>3.5</version>
+            <version>v3.5</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
