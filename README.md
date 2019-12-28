@@ -7,7 +7,10 @@
 [![SpigotMC](https://img.shields.io/badge/SpigotMC-v5.0.2-orange.svg)](https://www.spigotmc.org/resources/7811/)
 
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-blue.svg)](LICENSE.md)
-
+## TreasureIslandMC
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7ff7a616b1dc45468fda8f5a22dff2d3)](https://www.codacy.com/app/TreasureIslandMinecraft/SilkSpawners?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sarhatabaot/SilkSpawners&amp;utm_campaign=Badge_Grade)
+## Note
+This version is for use on the TreasureIslandMC servers. It doesn't include support for previous version but rather only the latest 1.14 version.
 ## Info
 This CraftBukkit plugin adds a way to obtain the spawner with the corresponding mob when mined with SilkTouch and offers a various range of changing spawners.
 * Crafting of each spawner (own recipe for every mob if wanted)
