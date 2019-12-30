@@ -1,0 +1,32 @@
+
+asquid:S1192°"JDefine a constant instead of duplicating this literal "EntityTag" 8 times.(Öû€
+bsquid:S1192¦"JDefine a constant instead of duplicating this literal "SpawnData" 6 times.(®–ÌÖ
+hsquid:S1192«"PDefine a constant instead of duplicating this literal "SpawnPotentials" 5 times.(Ÿš‘ 
+fsquid:S1192£"IDefine a constant instead of duplicating this literal "EntityId" 3 times.(¶˜«®ÿÿÿÿÿ
+squid:S1192."cDefine a constant instead of duplicating this literal "[SilkSpawners] Reflection failed: " 3 times.(˜¾şÿÿÿÿ
+jsquid:S1192—"MDefine a constant instead of duplicating this literal "SilkSpawners" 5 times.(ºøöİùÿÿÿÿ
+csquid:S1192´"KDefine a constant instead of duplicating this literal "minecraft:" 5 times.(“ÏÛ²
+lsquid:S1192"ODefine a constant instead of duplicating this literal "BlockEntityTag" 7 times.(½êÅØşÿÿÿÿ
+Nsquid:S3655>"7Call "Optional#isPresent()" before accessing the value.(ìº
+rsquid:S00120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ñƒ°¢
+Ssquid:UselessImportCheck"/Remove this unused import 'java.util.Iterator'.(¥ÍòÕ
+Ssquid:UselessImportCheck"*Remove this unused import 'java.util.Set'.(ö²„¤şÿÿÿÿ
+?squid:S1148/"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+?squid:S11480"#Use a logger to log this exception.(Âşÿâûÿÿÿÿ
+?squid:S1148V"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+?squid:S1148d"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+?squid:S1148q"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+?squid:S1148"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Isquid:S1135>"2Complete the task associated to this TODO comment.(ìº
+hsquid:CallToDeprecatedMethodö":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(œĞ‘äùÿÿÿÿ
+csquid:CallToDeprecatedMethodÓ":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(¾·“È
+hsquid:CallToDeprecatedMethodë":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(¤Ë˜Œıÿÿÿÿ
+hsquid:CallToDeprecatedMethodì":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(Ö¿ãÃşÿÿÿÿ
+csquid:CallToDeprecatedMethodî":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(úŠñ
+hsquid:CallToDeprecatedMethodğ":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(ã««£ıÿÿÿÿ
+3squid:S3626ı"Remove this redundant jump.(Ä…Ëô
+hsquid:CallToDeprecatedMethodû":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(¤Ë˜Œıÿÿÿÿ
+hsquid:CallToDeprecatedMethodü":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(Ö¿ãÃşÿÿÿÿ
+csquid:CallToDeprecatedMethodş":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(úŠñ
+hsquid:CallToDeprecatedMethod€":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(ã««£ıÿÿÿÿ
+hsquid:CallToDeprecatedMethod‘":Remove this use of "LEGACY_MONSTER_EGG"; it is deprecated.(ñá‰¨ÿÿÿÿÿ

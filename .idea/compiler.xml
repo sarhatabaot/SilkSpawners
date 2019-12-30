@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="SilkSpawners-v1_14_R1" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="bukkit" target="1.8" />
+      <module name="nukkit" target="1.8" />
+      <module name="Parent-Pom" target="1.5" />
+      <module name="SilkSpawners" target="1.8" />
+      <module name="SilkSpawners-API" target="1.8" />
+      <module name="SilkSpawners-parent" target="1.8" />
+      <module name="SilkSpawners-v1_10_R1" target="1.8" />
+      <module name="SilkSpawners-v1_11_R1" target="1.8" />
+      <module name="SilkSpawners-v1_12_R1" target="1.8" />
+      <module name="SilkSpawners-v1_13_R1" target="1.8" />
+      <module name="SilkSpawners-v1_14_2" target="1.8" />
+      <module name="SilkSpawners-v1_14_R1" target="1.8" />
+      <module name="SilkSpawners-v1_7_R1" target="1.8" />
+      <module name="SilkSpawners-v1_7_R2" target="1.8" />
+      <module name="SilkSpawners-v1_7_R3" target="1.8" />
+      <module name="SilkSpawners-v1_7_R4" target="1.8" />
+      <module name="SilkSpawners-v1_8_R1" target="1.8" />
+      <module name="SilkSpawners-v1_8_R2" target="1.8" />
+      <module name="SilkSpawners-v1_8_R3" target="1.8" />
+      <module name="SilkSpawners-v1_9_R1" target="1.8" />
+      <module name="SilkSpawners-v1_9_R2" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="SilkSpawners" options="-Xlint:all" />
+      <module name="SilkSpawners-API" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_10_R1" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_11_R1" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_12_R1" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_13_R1" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_13_R2" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_14_2" options="" />
+      <module name="SilkSpawners-v1_14_R1" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_14_R4" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_7_R1" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_7_R2" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_7_R3" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_7_R4" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_8_R1" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_8_R2" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_8_R3" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_9_R1" options="-Xlint:all" />
+      <module name="SilkSpawners-v1_9_R2" options="-Xlint:all" />
+    </option>
+  </component>
+</project>

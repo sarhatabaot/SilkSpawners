@@ -4,6 +4,3 @@
 target/
 .settings/
 bin/
-*.iml
-.idea
-libs

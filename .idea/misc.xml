@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EntryPointsManager">
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="org.bukkit.event.EventHandler" />
+    </list>
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/modules/v1_14_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/bukkit/pom.xml" />
+        <option value="$PROJECT_DIR$/nukkit/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_14_R4/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/modules/v1_10_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_11_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_12_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_13_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_7_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_7_R2/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_7_R3/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_7_R4/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_8_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_8_R2/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_8_R3/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_9_R1/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/v1_9_R2/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8 OpenJDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+</project>
