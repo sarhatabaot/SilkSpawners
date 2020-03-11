@@ -1,4 +1,4 @@
-package de.dustplanet.silkspawners.NMS.v1_14_R1;
+package de.dustplanet.silkspawners.NMS.v1_15_R1;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import de.dustplanet.silkspawners.api.NMSProvider;
-import net.minecraft.server.v1_14_R1.*;
+import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -18,10 +18,10 @@ import org.bukkit.block.BlockState;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.craftbukkit.v1_14_R1.CraftWorld;
-import org.bukkit.craftbukkit.v1_14_R1.block.CraftBlockEntityState;
-import org.bukkit.craftbukkit.v1_14_R1.block.CraftCreatureSpawner;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.block.CraftBlockEntityState;
+import org.bukkit.craftbukkit.v1_15_R1.block.CraftCreatureSpawner;
+import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.inventory.ItemStack;
@@ -39,7 +39,7 @@ public class NMSHandler implements NMSProvider {
             tileField.setAccessible(true);
         } catch (SecurityException | NoSuchFieldException e) {
             try {
-                Class.forName("org.bukkit.craftbukkit.v1_14_R1.block.CraftBlockEntityState");
+                Class.forName("org.bukkit.craftbukkit.v1_15_R1.block.CraftBlockEntityState");
                 tileField = CraftBlockEntityState.class.getDeclaredField("snapshot");
                 tileField.setAccessible(true);
             } catch (NoSuchFieldException | SecurityException | ClassNotFoundException e1) {
@@ -136,7 +136,7 @@ public class NMSHandler implements NMSProvider {
             return null;
         }
 
-        net.minecraft.server.v1_14_R1.ItemStack itemStack = null;
+        net.minecraft.server.v1_15_R1.ItemStack itemStack = null;
         CraftItemStack craftStack = CraftItemStack.asCraftCopy(item);
         itemStack = CraftItemStack.asNMSCopy(craftStack);
         NBTTagCompound tag = itemStack.getTag();
@@ -190,7 +190,7 @@ public class NMSHandler implements NMSProvider {
     @Override
     @Nullable
     public String getSilkSpawnersNBTEntityID(ItemStack item) {
-        net.minecraft.server.v1_14_R1.ItemStack itemStack = null;
+        net.minecraft.server.v1_15_R1.ItemStack itemStack = null;
         CraftItemStack craftStack = CraftItemStack.asCraftCopy(item);
         itemStack = CraftItemStack.asNMSCopy(craftStack);
         NBTTagCompound tag = itemStack.getTag();
@@ -204,7 +204,7 @@ public class NMSHandler implements NMSProvider {
     @Override
     @Nullable
     public String getVanillaNBTEntityID(ItemStack item) {
-        net.minecraft.server.v1_14_R1.ItemStack itemStack = null;
+        net.minecraft.server.v1_15_R1.ItemStack itemStack = null;
         CraftItemStack craftStack = CraftItemStack.asCraftCopy(item);
         itemStack = CraftItemStack.asNMSCopy(craftStack);
         NBTTagCompound tag = itemStack.getTag();
@@ -244,7 +244,7 @@ public class NMSHandler implements NMSProvider {
     @Override
     public ItemStack newEggItem(String entityID, int amount) {
         ItemStack item = new ItemStack(Material.LEGACY_MONSTER_EGG, amount);
-        net.minecraft.server.v1_14_R1.ItemStack itemStack = null;
+        net.minecraft.server.v1_15_R1.ItemStack itemStack = null;
         CraftItemStack craftStack = CraftItemStack.asCraftCopy(item);
         itemStack = CraftItemStack.asNMSCopy(craftStack);
         NBTTagCompound tag = itemStack.getTag();
@@ -271,7 +271,7 @@ public class NMSHandler implements NMSProvider {
 
     @Override
     public String getVanillaEggNBTEntityID(ItemStack item) {
-        net.minecraft.server.v1_14_R1.ItemStack itemStack = null;
+        net.minecraft.server.v1_15_R1.ItemStack itemStack = null;
         CraftItemStack craftStack = CraftItemStack.asCraftCopy(item);
         itemStack = CraftItemStack.asNMSCopy(craftStack);
         NBTTagCompound tag = itemStack.getTag();

@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.dustplanet</groupId>
     <artifactId>SilkSpawners</artifactId>
-    <version>6.1.4</version>
+    <version>6.1.4-1.15</version>
     <packaging>jar</packaging>
 
     <name>SilkSpawners</name>
@@ -35,20 +35,25 @@
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
+        <repository>
+            <id>getBukkit</id>
+            <url>https://cdn.getbukkit.org/spigot/</url>
+        </repository>
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
+            <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.14.4-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>1.15.2</version>
+            <systemPath>${project.basedir}/libs/spigot-1.15.2.jar</systemPath>
+            <scope>system</scope>
         </dependency>
         <dependency>
             <groupId>org.bstats</groupId>
